@@ -1,11 +1,19 @@
+# Import the "arcade" Library
 import arcade
+
+# Open Window
 arcade.open_window(1000, 800, "Drawing")
+
+# Set Background Color
 arcade.set_background_color(arcade.color.CAPRI)
+
+# Get Ready to Draw
 arcade.start_render()
-# Draw Grass
+
+# Grass
 arcade.draw_lrtb_rectangle_filled(0, 999, 200, 0, arcade.csscolor.GREEN)
 
-# --- Draw the House ---
+# --- House ---
 
 # Base of house
 arcade.draw_lrtb_rectangle_filled(500, 900, 500, 150, arcade.csscolor.RED)
@@ -41,7 +49,7 @@ arcade.draw_lrtb_rectangle_filled(785, 855, 423, 417, arcade.csscolor.WHITE)
 # Roof
 arcade.draw_triangle_filled(700, 680, 480, 500, 920, 500, arcade.color.ALLOY_ORANGE)
 
-# --- Draw Trees ---
+# --- Trees ---
 
 # Right Tree
 arcade.draw_lrtb_rectangle_filled(300, 320, 250, 180, arcade.color.SIENNA)
@@ -55,7 +63,7 @@ arcade.draw_ellipse_filled(210, 315, 60, 150, arcade.color.DARK_GREEN)
 arcade.draw_lrtb_rectangle_filled(100, 120, 250, 180, arcade.color.SIENNA)
 arcade.draw_circle_filled(110, 290, 50, arcade.color.DARK_GREEN)
 
-# --- Draw the Sun ---
+# --- Sun ---
 
 # Core of Sun
 arcade.draw_circle_filled(170, 650, 100, arcade.color.YELLOW)
@@ -71,5 +79,8 @@ arcade.draw_line(190, 540, 245, 450, arcade.color.YELLOW, 3)
 
 # Very Top Ray
 arcade.draw_line(290, 660, 420, 640, arcade.color.YELLOW, 3)
+
+# --- Finish Drawing ---
+
 arcade.finish_render()
 arcade.run()
