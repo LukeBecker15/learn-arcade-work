@@ -60,24 +60,52 @@ def main():
     room_list.append(room_6)
 
     current_room = 0
-    print()
-    print(room_list[current_room][0])
+
 
     done = False
     while not done:
 
+        print()
+        print(room_list[current_room][0])
 
         move_room = input("What direction do you want to move? ")
         if move_room.title() == "N" or move_room.title() == "North":
             next_room = room_list[current_room][1]
+
             if next_room == None:
+                print()
                 print("You can't go this way")
             else:
                 current_room = next_room
         elif move_room.title() == "S" or move_room.title() == "South":
             next_room = room_list[current_room][4]
             if next_room == None:
+                print()
                 print("You can't go this way")
+            else:
                 current_room = next_room
+
+        elif move_room.title() == "E" or move_room.title() == "East":
+            next_room = room_list[current_room][2]
+
+            if next_room == None:
+                print()
+                print("You can't go this way")
+            else:
+                current_room = next_room
+
+        elif move_room.title() == "W" or move_room.title() == "West":
+            next_room = room_list[current_room][3]
+
+            if next_room == None:
+                print()
+                print("You can't go this way")
+            else:
+                current_room = next_room
+
+        elif move_room.title() == "Q" or move_room.title() == "Quit":
+            done = True
+            print()
+            print("The game is over")
 
 main()
