@@ -1,152 +1,208 @@
-""" Lab 7 - User Control """
-
+import random
 import arcade
-# --- Constants ---
+import math
+
+SPRITE_SCALING = 0.5
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-MOVEMENT_SPEED = 5
-def draw_hoop(x, y):
-    arcade.draw_rectangle_filled(50, 50, 200, 130, arcade.color.WHITE)
-    arcade.draw_rectangle_filled(50, 50, 76, 12, arcade.color.GIANTS_ORANGE)
-    arcade.draw_rectangle_filled(50, 50, 80, 2, arcade.color.BLACK)
-    arcade.draw_rectangle_filled(50, 50, 2, 50, arcade.color.BLACK)
-    arcade.draw_rectangle_filled(50, 50, 2, 50, arcade.color.BLACK)
-    arcade.draw_rectangle_filled(50, 50, 80, 2, arcade.color.BLACK)
+COIN_COUNT = 50
+ROCK_COUNT = 30
 
-def draw_ball(x, y):
-    arcade.draw_circle_filled(50, 50, 20, arcade.color.ORANGE)
-    arcade.draw_text("Spalding", 45, 55, arcade.color.BLACK, 24)
+class Coin(arcade.Sprite):
 
-class Basket:
+    def __init__(self, filename, sprite_scaling):
+        """ Constructor. """
+        # Call the parent class (Sprite) constructor
+        super().__init__(filename, sprite_scaling)
 
-    def __init__(self, position_x, position_y, change_x, change_y):
-        self.position_x = position_x
-        self.position_y = position_y
-        self.change_x = change_x
-        self.change_y = change_y
-        self.upper_bound = 0
-        self.lower_bound = 0
+        # Current angle in radians
+        self.circle_angle = 0
 
+        # How far away from the center to orbit, in pixels
+        self.circle_radius = 0
 
+        # How fast to orbit, in radians per frame
+        self.circle_speed = 0.008
 
-    def draw(self):
-        draw_hoop(self.position_x, self.position_y,)
-
-
-
-class Basketball:
-    def __init__(self, position_x2, position_y2, change_x2, change_y2, radius):
-        self.position_x2 = position_x2
-        self.position_y2 = position_y2
-        self.change_x2 = change_x2
-        self.change_y2 = change_y2
-        self.radius = radius
-
-
-
-    def drawing(self):
-        draw_ball(self.position_x2, self.position_y2)
-
-    def drawing_2(self):
-        arcade.draw_text(self.position_x2, self.position_y2)
+        # Set the center of the point we will orbit around
+        self.circle_center_x = 0
+        self.circle_center_y = 0
 
     def update(self):
-        if self.position_x2 < self.radius:
-            self.position_x2 = self.radius
 
-        if self.position_x2 > SCREEN_WIDTH - self.radius:
-            self.position_x2 = SCREEN_WIDTH - self.radius
+        """ Update the ball's position. """
+        # Calculate a new x, y
+        self.center_x = self.circle_radius * math.sin(self.circle_angle) \
+                        + self.circle_center_x
+        self.center_y = self.circle_radius * math.cos(self.circle_angle) \
+                        + self.circle_center_y
 
-        if self.position_y2 < self.radius:
-            self.position_y2 = self.radius
+        # Increase the angle in prep for the next round.
+        self.circle_angle += self.circle_speed + .02
 
-        if self.position_y2 > SCREEN_HEIGHT - self.radius:
-            self.position_y2 = SCREEN_HEIGHT - self.radius
+class Rock(arcade.Sprite):
+
+    def __init__(self, filename, sprite_scaling):
+        """ Constructor. """
+        # Call the parent class (Sprite) constructor
+        super().__init__(filename, sprite_scaling)
+
+        # Current angle in radians
+        self.circle_angle = 0
+
+        # How far away from the center to orbit, in pixels
+        self.circle_radius = 0
+
+        # How fast to orbit, in radians per frame
+        self.circle_speed = 0.008
+
+        # Set the center of the point we will orbit around
+        self.circle_center_x = 0
+        self.circle_center_y = 0
+
+    def update(self):
+
+        """ Update the ball's position. """
+        # Calculate a new x, y
+        self.center_x = self.circle_radius * math.sin(self.circle_angle) \
+                        + self.circle_center_x
+        self.center_y = self.circle_radius * math.cos(self.circle_angle) \
+                        + self.circle_center_y
+
+        # Increase the angle in prep for the next round.
+        self.circle_angle += self.circle_speed
 
 
 class MyGame(arcade.Window):
-    """ Our Custom Window Class"""
-    def __init__(self):
+
+    """ Main application class. """
+
+    def __init__(self, width, height):
+
+        super().__init__(width, height)
+
+        # Sprite lists
+        self.player_list = None
+        self.coin_list = None
+        self.rock_list = None
+
+        # Set up the player
+        self.score = 0
+        self.player_sprite = None
+
+        self.lives = 3
+        self.rock_sprite = None
+
+    def start_new_game(self):
+        """ Set up the game and initialize the variables. """
+
+        # Sprite lists
+        self.player_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
+        self.rock_list = arcade.SpriteList()
+
+        # Set up the player
+        self.score = 0
+
+        # Character image from http://clipart-library.com/
+        self.player_sprite = arcade.Sprite("unnamed.png", SPRITE_SCALING / 3)
+
+        self.player_sprite.center_x = 50
+        self.player_sprite.center_y = 70
+        self.player_list.append(self.player_sprite)
+
+        for i in range(COIN_COUNT):
 
 
+            # Coin image from https://www.pinterest.com/
+            coin = Coin("c8884d6baa63c7497d28a9fae4f87a03.png", SPRITE_SCALING / 10)
 
-        # Call the parent class initializer
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Lab 7 - User Control")
-        arcade.set_background_color(arcade.color.CAPRI)
+            # Position the center of the circle the coin will orbit
+            coin.circle_center_x = random.randrange(SCREEN_WIDTH)
+            coin.circle_center_y = random.randrange(SCREEN_HEIGHT)
 
+            # Random radius from 10 to 200
+            coin.circle_radius = random.randrange(10, 200)
+
+            # Random start angle from 0 to 2pi
+            coin.circle_angle = random.random() * 2 * math.pi
+
+            # Add the coin to the lists
+            self.coin_list.append(coin)
+
+
+        for i in range(ROCK_COUNT):
+
+
+            # Coin image from https://www.pinterest.com/
+            rock = Rock("images.png", SPRITE_SCALING / 2)
+
+            # Position the center of the circle the coin will orbit
+            rock.circle_center_x = random.randrange(SCREEN_WIDTH)
+            rock.circle_center_y = random.randrange(SCREEN_HEIGHT)
+
+            # Random radius from 10 to 200
+            rock.circle_radius = random.randrange(10, 200)
+
+            # Random start angle from 0 to 2pi
+            rock.circle_angle = random.random() * 2 * math.pi
+
+            # Add the coin to the lists
+            self.rock_list.append(rock)
+
+        # Don't show the mouse cursor
         self.set_mouse_visible(False)
 
-        self.backboard = Basket(50, 50, 0, 0)
-        self.rim = Basket(50, 50, 0, 0)
-        self.bottom_line = Basket(50, 50, 0, 0)
-        self.right_line = Basket(50, 50, 0, 0)
-        self.left_line = Basket(50, 50, 0, 0)
-        self.top_line = Basket(50, 50, 0, 0)
-
-        self.ball = Basketball(50, 50, 0, 0, 20)
-        self.text = Basketball("Spalding", 50, 60, 24, arcade.color.BLACK)
+        # Set the background color
+        arcade.set_background_color(arcade.color.AMAZON)
 
     def on_draw(self):
+
+        # This command has to happen before we start drawing
         arcade.start_render()
-        self.backboard.draw()
-        self.rim.draw()
-        self.bottom_line.draw()
-        self.right_line.draw()
-        self.left_line.draw()
-        self.top_line.draw()
-        self.ball.drawing()
 
-    def update(self, delta_time):
-        self.ball.update()
+        # Draw all the sprites.
+        self.coin_list.draw()
+        self.player_list.draw()
+        self.rock_list.draw()
 
-        def on_key_press(self, key, modifiers):
-            """ Called whenever the user presses a key. """
-            if key == arcade.key.LEFT:
-                self.ball.change_x2 = -MOVEMENT_SPEED
-            elif key == arcade.key.RIGHT:
-                self.ball.change_x2 = MOVEMENT_SPEED
-            elif key == arcade.key.UP:
-                self.ball.change_y2 = MOVEMENT_SPEED
-            elif key == arcade.key.DOWN:
-                self.ball.change_y2 = -MOVEMENT_SPEED
-
-        def on_key_release(self, key, modifiers):
-            """ Called whenever a user releases a key. """
-            if key == arcade.key.LEFT or key == arcade.key.RIGHT:
-                self.ball.change_x2 = 0
-            elif key == arcade.key.UP or key == arcade.key.DOWN:
-                self.ball.change_y2 = 0
-
-        def draw_grass():
-            arcade.draw_lrtb_rectangle_filled(0, 800, 100, 0, arcade.color.AO)
-
-        draw_grass()
-        self.backboard.draw()
-        self.rim.draw()
-        self.bottom_line.draw()
-        self.right_line.draw()
-        self.left_line.draw()
-        self.top_line.draw()
-        self.ball.drawing()
-
+        # Put the text on the screen.
+        output = "Score: " + str(self.score)
+        arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
 
     def on_mouse_motion(self, x, y, dx, dy):
-        self.backboard.position_x = x
-        self.backboard.position_y = y
-        self.rim.position_x = x
-        self.rim.position_y = y - 25
-        self.bottom_line.position_x = x
-        self.bottom_line.position_y = y - 20
-        self.right_line.position_x = x + 40
-        self.right_line.position_y = y + 5
-        self.left_line.position_x = x - 40
-        self.left_line.position_y = y + 5
-        self.top_line.position_x = x
-        self.top_line.position_y = y + 30
+        self.player_sprite.center_x = x
+        self.player_sprite.center_y = y
+
+    def update(self, delta_time):
+        """ Movement and game logic """
+
+        # Call update on all sprites (The sprites don't do much in this
+        # example though.)
+        self.coin_list.update()
+        self.rock_list.update()
+
+        # Generate a list of all sprites that collided with the player.
+        good_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
+                                                        self.coin_list)
+        bad_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
+                                                        self.rock_list)
+        # Loop through each colliding sprite, remove it, and add to the score.
+        for coin in good_hit_list:
+            self.score += 1
+            coin.remove_from_sprite_lists()
+
+        for rock in bad_hit_list:
+            self.lives -= 1
+            rock.remove_from_sprite_lists()
+
 
 def main():
-    window = MyGame()
+    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT)
+    window.start_new_game()
     arcade.run()
 
 
-main()
+if __name__ == "__main__":
+    main()
