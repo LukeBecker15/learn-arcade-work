@@ -210,13 +210,23 @@ class MyGame(arcade.Window):
         bad_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
                                                         self.rock_list)
         # Loop through each colliding sprite, remove it, and add to the score.
+
+        # From OpenGameArt.org
+        coin_sound = arcade.load_sound("coin01.wav")
+
+        # From OpenGameArt.org
+        rock_sound = arcade.load_sound("crash.wav")
+
         for coin in good_hit_list:
             self.score += 1
             coin.remove_from_sprite_lists()
+            arcade.play_sound(coin_sound)
 
         for rock in bad_hit_list:
             self.lives -= 1
             rock.remove_from_sprite_lists()
+            arcade.play_sound(rock_sound)
+
 
 
 
