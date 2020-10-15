@@ -9,21 +9,21 @@ If Python and Arcade are installed, this example can be run from the command lin
 python -m arcade.examples.sprite_move_scrolling
 """
 
-import random
+
 import arcade
 import os
 
 SPRITE_SCALING = 0.5
 
-SCREEN_WIDTH = 230
-SCREEN_HEIGHT = 150
+SCREEN_WIDTH = 1600
+SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Sprite Move Lab"
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
 VIEWPORT_MARGIN = 20
 
-MOVEMENT_SPEED = 5
+MOVEMENT_SPEED = 10
 
 
 class MyGame(arcade.Window):
@@ -42,6 +42,10 @@ class MyGame(arcade.Window):
         file_path = os.path.dirname(os.path.abspath(__file__))
         os.chdir(file_path)
 
+
+
+        self.score = 0
+
         # Sprite lists
         self.player_list = None
 
@@ -51,11 +55,13 @@ class MyGame(arcade.Window):
         self.coin_list = None
         self.wall_list = None
 
+
         self.physics_engine = None
 
         # Used in scrolling
         self.view_bottom = 0
         self.view_left = 0
+
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -63,58 +69,239 @@ class MyGame(arcade.Window):
         # Sprite lists
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
 
         # Set up the player
-        self.player_sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png", 0.4)
+
+        # Sandwich image from vecteezy.com
+        self.player_sprite = arcade.Sprite("images2.png", 0.2)
         self.player_sprite.center_x = 64
         self.player_sprite.center_y = 270
         self.player_list.append(self.player_sprite)
 
-        # -- Set up several columns of walls
-        for x in range(150, 800, 64):
-                    wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-                    wall.center_x = x
-                    wall.center_y = 960
-                    self.wall_list.append(wall)
 
-        for x in range(900, 1600, 64):
-                    wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-                    wall.center_x = x
-                    wall.center_y = 960
-                    self.wall_list.append(wall)
+        self.coin = arcade.Sprite("images3.png", .15)
+        self.coin.center_x = 1350
+        self.coin.center_y = 900
+        self.coin_list.append(self.coin)
+
+        self.coin = arcade.Sprite("images3.png", .15)
+        self.coin.center_x = 333
+        self.coin.center_y = 300
+        self.coin_list.append(self.coin)
+
+        self.coin = arcade.Sprite("images3.png", .15)
+        self.coin.center_x = 653
+        self.coin.center_y = 480
+        self.coin_list.append(self.coin)
+
+        self.coin = arcade.Sprite("images3.png", .15)
+        self.coin.center_x = 1043
+        self.coin.center_y = 480
+        self.coin_list.append(self.coin)
+
+        self.coin = arcade.Sprite("images3.png", .15)
+        self.coin.center_x = 1680
+        self.coin.center_y = -100
+        self.coin_list.append(self.coin)
+
+        self.coin = arcade.Sprite("images3.png", .15)
+        self.coin.center_x = 50
+        self.coin.center_y = 1100
+        self.coin_list.append(self.coin)
+
+        self.coin = arcade.Sprite("images3.png", .15)
+        self.coin.center_x = 50
+        self.coin.center_y = -80
+        self.coin_list.append(self.coin)
+
+        self.coin = arcade.Sprite("images3.png", .15)
+        self.coin.center_x = 1680
+        self.coin.center_y = 1100
+        self.coin_list.append(self.coin)
+
+        # -- Set up several columns of walls
+
+        # Blue box image from teacherspayteachers.com
+        for x in range(150, 800, 64):
+                wall = arcade.Sprite("images.png", .39)
+                wall.center_x = x
+                wall.center_y = 960
+                self.wall_list.append(wall)
+
+        for x in range(915, 1615, 64):
+                wall = arcade.Sprite("images.png", .39)
+                wall.center_x = x
+                wall.center_y = 960
+                self.wall_list.append(wall)
 
         for x in range(150, 1542, 64):
-            wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
+            wall = arcade.Sprite("images.png", .39)
             wall.center_x = x
             wall.center_y = 0
             self.wall_list.append(wall)
 
 
-            for x in range(270, 1422, 64):
-                wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-                wall.center_x = x
-                wall.center_y = 120
-                self.wall_list.append(wall)
+        for x in range(270, 1422, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = 120
+            self.wall_list.append(wall)
 
+        for x in range(270, 1422, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = 832
+            self.wall_list.append(wall)
 
+        for x in range(-64, 1792, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = 1200
+            self.wall_list.append(wall)
 
+        for x in range(-64, 1792, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = -192
+            self.wall_list.append(wall)
+
+        for x in range(398, 1294, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = 248
+            self.wall_list.append(wall)
+
+        for x in range(398, 1294, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = 704
+            self.wall_list.append(wall)
+
+        for x in range(522, 1166, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = 576
+            self.wall_list.append(wall)
+
+        for x in range(522, 842, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = 376
+            self.wall_list.append(wall)
+
+        for x in range(906, 1166, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = x
+            wall.center_y = 376
+            self.wall_list.append(wall)
+
+        for y in range(-192, 1200, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = -64
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(-192, 1200, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 1792
+            wall.center_y = y
+            self.wall_list.append(wall)
 
         for y in range(0, 960, 64):
-            wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
+            wall = arcade.Sprite("images.png", .39)
             wall.center_x = 150
             wall.center_y = y
             self.wall_list.append(wall)
 
         for y in range(0, 960, 64):
-            wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-            wall.center_x = 1542
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 1556
             wall.center_y = y
             self.wall_list.append(wall)
+
+        for y in range(120, 500, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 1408
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(576, 852, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 1408
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(120, 832, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 270
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(251, 707, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 1294
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(251, 500, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 398
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(574, 710, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 398
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(381, 581, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 522
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(381, 581, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 906
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(381, 509, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 1161
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        for y in range(381, 509, 64):
+            wall = arcade.Sprite("images.png", .39)
+            wall.center_x = 778
+            wall.center_y = y
+            self.wall_list.append(wall)
+
+        # White box image from cleanpng.com
+        wall = arcade.Sprite("images1.png", .35)
+        wall.center_x = 1480
+        wall.center_y = 600
+        self.wall_list.append(wall)
+
+        wall = arcade.Sprite("images1.png", .30)
+        wall.center_x = 335
+        wall.center_y = 400
+        self.wall_list.append(wall)
+
+        wall = arcade.Sprite("images1.png", .28)
+        wall.center_x = 460
+        wall.center_y = 400
+        self.wall_list.append(wall)
+
+
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
 
         # Set the background color
-        arcade.set_background_color(arcade.color.AMAZON)
+        arcade.set_background_color(arcade.color.RED)
 
         # Set the viewport boundaries
         # These numbers set where we have 'scrolled' to.
@@ -132,6 +319,12 @@ class MyGame(arcade.Window):
         # Draw all the sprites.
         self.wall_list.draw()
         self.player_list.draw()
+        self.coin_list.draw()
+
+
+
+        self.output = "Score: " + str(self.score)
+        arcade.draw_text(self.output, self.view_left, self.view_bottom, arcade.color.WHITE, 14)
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -203,6 +396,17 @@ class MyGame(arcade.Window):
                                 SCREEN_WIDTH + self.view_left,
                                 self.view_bottom,
                                 SCREEN_HEIGHT + self.view_bottom)
+
+        good_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
+                                                        self.coin_list)
+
+        coin_sound = arcade.load_sound("powerUp11.ogg")
+
+        for coin in good_hit_list:
+            self.score += 1
+            coin.remove_from_sprite_lists()
+            arcade.play_sound(coin_sound)
+
 
 
 def main():
