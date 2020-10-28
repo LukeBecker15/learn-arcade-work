@@ -38,8 +38,6 @@ class MyGame(arcade.Window):
         # array is simply a list of lists.
         self.grid = []
         for row in range(ROW_COUNT):
-            # Add an empty array that will hold each cell
-            # in this row
             self.grid.append([])
             for column in range(COLUMN_COUNT):
                 self.grid[row].append(0)  # Append a cell
@@ -60,8 +58,6 @@ class MyGame(arcade.Window):
 
                 # Figure out what color to draw the box
                 if self.grid[row][column] == 1:
-                    color = arcade.color.GREEN
-                elif self.grid[row][column] == 1:
                     color = arcade.color.GREEN
                 else:
                     color = arcade.color.WHITE
@@ -98,16 +94,35 @@ class MyGame(arcade.Window):
             # Flip the location between 1 and 0.
             if self.grid[row][column] == 0:
                 self.grid[row][column] = 1
-                self.grid[row + 1][column] = 1
-                self.grid[row - 1][column] = 1
-                self.grid[row][column + 1] = 1
-                self.grid[row][column - 1] = 1
-            else:
+
+            elif self.grid[row][column] == 1:
                 self.grid[row][column] = 0
-                self.grid[row + 1][column] = 0
-                self.grid[row - 1][column] = 0
-                self.grid[row][column + 1] = 0
-                self.grid[row][column - 1] = 0
+
+
+            if x > WIDTH + MARGIN:
+                if self.grid[row][column - 1] == 0:
+                    self.grid[row][column - 1] = 1
+                elif self.grid[row][column - 1] == 1:
+                    self.grid[row][column - 1] = 0
+
+            if x < SCREEN_WIDTH - WIDTH:
+                if self.grid[row][column + 1] == 0:
+                    self.grid[row][column + 1] = 1
+                elif self.grid[row][column + 1] == 1:
+                    self.grid[row][column + 1] = 0
+
+            if y > HEIGHT + MARGIN:
+                if self.grid[row - 1][column] == 0:
+                    self.grid[row - 1][column] = 1
+                elif self.grid[row - 1][column] == 1:
+                    self.grid[row - 1][column] = 0
+
+            if y < SCREEN_HEIGHT - HEIGHT:
+                if self.grid[row + 1][column] == 0:
+                    self.grid[row + 1][column] = 1
+                elif self.grid[row + 1][column] == 1:
+                    self.grid[row + 1][column] = 0
+
 
         self.create_shapes_from_grid()
 
