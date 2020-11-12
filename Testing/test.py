@@ -67,7 +67,7 @@ def main():
 
     list_for_selection_sort = []
     list_for_insertion_sort = []
-    list_size = 100
+    list_size = 1000
     for i in range(list_size):
         new_number = random.randrange(100)
         list_for_selection_sort.append(new_number)
