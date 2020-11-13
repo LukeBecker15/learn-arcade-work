@@ -18,17 +18,17 @@ SCREEN_WIDTH = 1000
 
 class Box(arcade.Sprite):
     def update(self):
-        self.center_x -= 3
+        self.center_x -= 2
 
 class Heart(arcade.Sprite):
     def update(self):
-        self.center_x -= 1.5
+        self.center_x -= 2
 
 def level_1(box_list, heart_list):
     for i in range(ROCK_COUNT_1):
         # image from nicepng.com
         asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
-        asteroid_sprite.center_x = random.randrange(SCREEN_WIDTH + 600) + 800
+        asteroid_sprite.center_x = random.randrange(SCREEN_WIDTH + 800) + 800
         asteroid_sprite.center_y = random.randrange(SCREEN_HEIGHT)
         box_list.append(asteroid_sprite)
         asteroid_sprite.points_available = 1
@@ -82,7 +82,6 @@ def level_2(box_list, heart_list):
 
 
 
-
 def level_3(box_list, heart_list):
     for x in range(875, 1575, 64):
         # image from nicepng.com
@@ -116,6 +115,7 @@ def level_3(box_list, heart_list):
         box_list.append(asteroid_sprite)
         asteroid_sprite.points_available = 1
 
+
     coordinate_list = [[1500, 600],
                    [1575, 650], [1650, 700], [1725, 750], [1800, 800],
                    [1500, 300], [1575, 250], [1650, 200], [1725, 150], [1800, 100],
@@ -124,7 +124,15 @@ def level_3(box_list, heart_list):
                    [2650, 600], [2725, 650], [2800, 700], [2875, 750], [2950, 800],
                    [2650, 300], [2725, 250], [2800, 200], [2875, 150], [2950, 100],
                    [3025, 800], [3100, 750], [3175, 700], [3250, 650], [3325, 600], [3400, 550],
-                   [3025, 100], [3100, 150], [3175, 200], [3250, 250], [3325, 300], [3400, 350]
+                   [3025, 100], [3100, 150], [3175, 200], [3250, 250], [3325, 300], [3400, 350],
+                   [1575, 450], [1650, 500], [1725, 550], [1800, 600], [1875, 600],
+                   [1650, 400], [1725, 350], [1800, 300], [1875, 300],
+                   [1950, 550], [2025, 500], [2100, 450],
+                   [1950, 350], [2025, 400],
+                   [2725, 450], [2800, 500], [2875, 550], [2950, 600], [3025, 600],
+                   [2800, 400], [2875, 350], [2950, 300], [3025, 300],
+                   [3100, 550], [3175, 500], [3250, 450],
+                   [3100, 350], [3175, 400]
                     ]
 
     for coordinate in coordinate_list:
@@ -133,6 +141,218 @@ def level_3(box_list, heart_list):
         asteroid_sprite.center_y = coordinate[1] - 50
         box_list.append(asteroid_sprite)
         asteroid_sprite.points_available = 1
+
+
+
+def level_4(box_list, heart_list):
+    for y in range(0, 200, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 1400
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(325, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 1400
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 600, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 1700
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(725, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 1700
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 75, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 2000
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(200, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 2000
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 250, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 2300
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(375, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 2300
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(125, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 2600
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 675, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 2900
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(775, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 2900
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 350, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 3200
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(475, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 3200
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 100, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 3500
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(225, 600, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 3500
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(725, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 3500
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 750, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 3800
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 125, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 4100
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(200, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 4100
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 575, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 4400
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(700, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 4400
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(0, 400, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 4700
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for y in range(525, 800, 64):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = 4700
+        asteroid_sprite.center_y = y
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+def level_5(box_list, heart_list):
+    for i in range(ROCK_COUNT_1 + 50):
+        # image from nicepng.com
+        asteroid_sprite = Box("asteroid.png", SPRITE_SCALING_BOX)
+        asteroid_sprite.center_x = random.randrange(SCREEN_WIDTH + 700) + 800
+        asteroid_sprite.center_y = random.randrange(SCREEN_HEIGHT)
+        box_list.append(asteroid_sprite)
+        asteroid_sprite.points_available = 1
+
+    for i in range(HEART_COUNT_1):
+        # image from dreamstime.com
+        heart_sprite = Heart("heart.png", SPRITE_SCALING_HEART)
+        heart_placed = False
+        while not heart_placed:
+
+            heart_sprite.center_x = random.randrange(SCREEN_WIDTH + 500) + 800
+            heart_sprite.center_y = random.randrange(SCREEN_HEIGHT)
+            bad_hit_list = arcade.check_for_collision_with_list(heart_sprite,
+                                                                box_list)
+            if len(bad_hit_list) == 0:
+                heart_placed = True
+        heart_list.append(heart_sprite)
+
+
 
 class MyGame(arcade.Window):
     def __init__(self):
@@ -183,7 +403,7 @@ class MyGame(arcade.Window):
 
 
 
-        level_3(self.box_list, self.heart_list)
+        level_5(self.box_list, self.heart_list)
 
 
 
