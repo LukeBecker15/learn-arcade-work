@@ -1735,6 +1735,7 @@ class GameView(arcade.View):
         self.window.set_mouse_visible(False)
         self.physics_engine = None
 
+        #Both sounds from opengameart.org
         self.rock_sound = arcade.load_sound("explosion.ogg")
         self.heart_sound = arcade.load_sound("heart.ogg")
 
